@@ -150,6 +150,7 @@ int ActivityContext::open(jint nativeApi,
                           jint performanceMode,
                           jint inputPreset,
                           jint usage,
+                          jint contentType,
                           jint deviceId,
                           jint sessionId,
                           jint framesPerBurst,
@@ -189,6 +190,7 @@ int ActivityContext::open(jint nativeApi,
             ->setPerformanceMode((oboe::PerformanceMode) performanceMode)
             ->setInputPreset((oboe::InputPreset)inputPreset)
             ->setUsage((oboe::Usage)usage)
+            ->setContentType((oboe::ContentType)contentType)
             ->setDeviceId(deviceId)
             ->setSessionId((oboe::SessionId) sessionId)
             ->setSampleRate(sampleRate)
@@ -390,8 +392,12 @@ void ActivityTestOutput::configureForStart() {
         for (int i = 0; i < mChannelCount; i++) {
             sineOscillators[i].setSampleRate(outputStream->getSampleRate());
             sineOscillators[i].frequency.setValue(frequency);
-            frequency *= 4.0 / 3.0; // each sine is at a higher frequency
             sineOscillators[i].amplitude.setValue(AMPLITUDE_SINE);
+            sawtoothOscillators[i].setSampleRate(outputStream->getSampleRate());
+            sawtoothOscillators[i].frequency.setValue(frequency);
+            sawtoothOscillators[i].amplitude.setValue(AMPLITUDE_SAWTOOTH);
+
+            frequency *= 4.0 / 3.0; // each wave is at a higher frequency
             setChannelEnabled(i, true);
         }
     }

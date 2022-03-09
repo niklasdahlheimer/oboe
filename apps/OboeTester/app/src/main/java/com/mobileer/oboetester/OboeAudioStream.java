@@ -64,6 +64,7 @@ abstract class OboeAudioStream extends AudioStreamBase {
                 requestedConfiguration.getPerformanceMode(),
                 requestedConfiguration.getInputPreset(),
                 requestedConfiguration.getUsage(),
+                requestedConfiguration.getContentType(),
                 requestedConfiguration.getDeviceId(),
                 requestedConfiguration.getSessionId(),
                 requestedConfiguration.getFramesPerBurst(),
@@ -85,6 +86,7 @@ abstract class OboeAudioStream extends AudioStreamBase {
         actualConfiguration.setPerformanceMode(getPerformanceMode());
         actualConfiguration.setInputPreset(getInputPreset());
         actualConfiguration.setUsage(getUsage());
+        actualConfiguration.setContentType(getContentType());
         actualConfiguration.setFramesPerBurst(getFramesPerBurst());
         actualConfiguration.setBufferCapacityInFrames(getBufferCapacityInFrames());
         actualConfiguration.setChannelCount(getChannelCount());
@@ -106,6 +108,7 @@ abstract class OboeAudioStream extends AudioStreamBase {
             int performanceMode,
             int inputPreset,
             int usage,
+            int contentType,
             int deviceId,
             int sessionId,
             int framesPerRead,
@@ -188,6 +191,11 @@ abstract class OboeAudioStream extends AudioStreamBase {
     }
     public native int getUsage(int streamIndex);
 
+    public int getContentType() {
+        return getContentType(streamIndex);
+    }
+    public native int getContentType(int streamIndex);
+
     public int getChannelCount() {
         return getChannelCount(streamIndex);
     }
@@ -246,6 +254,12 @@ abstract class OboeAudioStream extends AudioStreamBase {
         return getCpuLoad(streamIndex);
     }
     public native double getCpuLoad(int streamIndex);
+
+    @Override
+    public String getCallbackTimeStr() {
+        return getCallbackTimeString();
+    }
+    public native String getCallbackTimeString();
 
     @Override
     public native void setWorkload(double workload);

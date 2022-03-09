@@ -119,6 +119,7 @@ public:
              jint performanceMode,
              jint inputPreset,
              jint usage,
+             jint contentType,
              jint deviceId,
              jint sessionId,
              jint framesPerBurst,
@@ -144,6 +145,10 @@ public:
 
     double getCpuLoad() {
         return oboeCallbackProxy.getCpuLoad();
+    }
+
+    std::string getCallbackTimeString() {
+        return oboeCallbackProxy.getCallbackTimeString();
     }
 
     void setWorkload(double workload) {
